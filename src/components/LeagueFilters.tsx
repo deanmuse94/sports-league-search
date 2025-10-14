@@ -9,6 +9,8 @@ export default function LeagueFilters({
 }: {
   leagues: League[] | undefined;
 }) {
+  const sports = [...new Set(leagues?.map((league) => league.strSport))];
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { updateSearchResults } = useSearchResults((state) => state);
@@ -34,7 +36,7 @@ export default function LeagueFilters({
   };
 
   return (
-    <div className="flex justify-center mb-14 gap-4">
+    <div className="flex justify-center mb-14 max-w-[95%] m-auto gap-4 max-[792px]:flex-col">
       <input
         ref={inputRef}
         type="search"
@@ -42,18 +44,18 @@ export default function LeagueFilters({
           handleSearch(e.target.value)
         }
         placeholder="Search leagues"
-        className="rounded-lg border border-gray-600 p-2 w-[342px] h-[40px] focus:border-green-600"
+        className="rounded-lg border border-gray-600 p-2 w-[342px] h-[40px] focus:border-green-600 max-[792px]:w-full"
       />
       <select
         value={selectedSport}
         onChange={handleSelect}
-        className="border border-gray-600 rounded-lg p-2 w-[242px] h-[40px] cursor-pointer"
+        className="border border-gray-600 rounded-lg p-2 w-[242px] h-[40px] cursor-pointer max-[792px]:w-full"
       >
         <option value="">All sports</option>
-        {leagues &&
-          leagues.map((league) => (
-            <option key={league.idLeague} value={league.strSport}>
-              {league.strSport}
+        {sports &&
+          sports.map((sport) => (
+            <option key={sport} value={sport}>
+              {sport}
             </option>
           ))}
       </select>

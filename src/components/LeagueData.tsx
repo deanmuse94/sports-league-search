@@ -3,6 +3,7 @@ import { useSelectedSport } from "../store/sport-selection";
 import LeagueLoader from "./LeagueLoader";
 import { useSearchResults } from "../store/search";
 import SearchResults from "./SearchResults";
+import { useLeagueId } from "../store/league-id";
 
 export default function LeagueData({
   leagues,
@@ -15,6 +16,7 @@ export default function LeagueData({
 }) {
   const { selectedSport } = useSelectedSport((state) => state);
   const { searchResults } = useSearchResults((state) => state);
+  const { updateLeagueId } = useLeagueId((state) => state);
 
   const retry = () => {
     window.location.reload();
@@ -43,7 +45,7 @@ export default function LeagueData({
   }
 
   return (
-    <div className="w-[1240px] m-auto grid grid-cols-3 gap-5">
+    <div className="w-[1240px] max-w-[95%] m-auto grid grid-cols-3 gap-5 max-[1175px]:grid-cols-2 max-[792px]:grid-cols-1">
       {leagues &&
         leagues.map((league) => {
           if (selectedSport && selectedSport !== league.strSport) {
@@ -52,6 +54,7 @@ export default function LeagueData({
           return (
             <div
               key={league.idLeague}
+              onClick={() => updateLeagueId(league.idLeague)}
               className="border border-gray-600 h-[180px] rounded-lg p-4 flex flex-col justify-between cursor-pointer hover:bg-slate-950"
             >
               <div className="flex justify-between">

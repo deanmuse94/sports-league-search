@@ -12,7 +12,7 @@ function App() {
         fetcher,
       }}
     >
-      <h1 className="text-center mb-10">Sports Leagues</h1>
+      <h1 className="text-center my-10">Sports Leagues</h1>
       <AppProvider />
     </SWRConfig>
   );
