@@ -1,6 +1,8 @@
 import type { League } from "../types/league";
 import { useSelectedLeague } from "../store/selected-league";
 import LeagueLoader from "./LeagueLoader";
+import { useSearchResults } from "../store/search";
+import SearchResults from "./SearchResults";
 
 export default function LeagueData({
   leagues,
@@ -12,6 +14,7 @@ export default function LeagueData({
   error: unknown;
 }) {
   const { selectedLeague } = useSelectedLeague((state) => state);
+  const { searchResults } = useSearchResults((state) => state);
 
   const retry = () => {
     window.location.reload();
@@ -33,6 +36,10 @@ export default function LeagueData({
         </button>
       </div>
     );
+  }
+
+  if (searchResults && searchResults.length > 0) {
+    return <SearchResults results={searchResults} />;
   }
 
   return (
