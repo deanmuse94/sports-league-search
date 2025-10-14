@@ -1,5 +1,5 @@
 import type { League } from "../types/league";
-import { useSelectedLeague } from "../store/selected-league";
+import { useSelectedSport } from "../store/sport-selection";
 import LeagueLoader from "./LeagueLoader";
 import { useSearchResults } from "../store/search";
 import SearchResults from "./SearchResults";
@@ -13,7 +13,7 @@ export default function LeagueData({
   loading: boolean;
   error: unknown;
 }) {
-  const { selectedLeague } = useSelectedLeague((state) => state);
+  const { selectedSport } = useSelectedSport((state) => state);
   const { searchResults } = useSearchResults((state) => state);
 
   const retry = () => {
@@ -46,7 +46,7 @@ export default function LeagueData({
     <div className="w-[1240px] m-auto grid grid-cols-3 gap-5">
       {leagues &&
         leagues.map((league) => {
-          if (selectedLeague && selectedLeague !== league.strLeague) {
+          if (selectedSport && selectedSport !== league.strSport) {
             return null;
           }
           return (

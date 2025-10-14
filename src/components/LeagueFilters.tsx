@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useSearchResults } from "../store/search";
-import { useSelectedLeague } from "../store/selected-league";
+import { useSelectedSport } from "../store/sport-selection";
 import type { League } from "../types/league";
 import Fuse, { type IFuseOptions } from "fuse.js";
 
@@ -13,12 +13,12 @@ export default function LeagueFilters({
 
   const { updateSearchResults } = useSearchResults((state) => state);
 
-  const { selectedLeague, updateSelectedLeague } = useSelectedLeague(
+  const { selectedSport, updateSelectedSport } = useSelectedSport(
     (state) => state
   );
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     updateSearchResults([]);
-    updateSelectedLeague(event.target.value);
+    updateSelectedSport(event.target.value);
   };
 
   const searchOptions: IFuseOptions<League> = {
@@ -45,15 +45,15 @@ export default function LeagueFilters({
         className="rounded-lg border border-gray-600 p-2 w-[342px] h-[40px] focus:border-green-600"
       />
       <select
-        value={selectedLeague}
+        value={selectedSport}
         onChange={handleSelect}
         className="border border-gray-600 rounded-lg p-2 w-[242px] h-[40px] cursor-pointer"
       >
-        <option value="">All Leagues</option>
+        <option value="">All sports</option>
         {leagues &&
           leagues.map((league) => (
-            <option key={league.idLeague} value={league.strLeague}>
-              {league.strLeague}
+            <option key={league.idLeague} value={league.strSport}>
+              {league.strSport}
             </option>
           ))}
       </select>
